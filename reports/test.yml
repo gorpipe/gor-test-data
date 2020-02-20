@@ -1,0 +1,20 @@
+TestReport:
+    query: |
+        gor ../tests/data/gor/dbsnp_test.gorz | cmd {${passthrough}} | top ${top.val}
+    cmdquery: |
+        cmd {-n cat ${passthrough}}
+    passthrough: |
+        #!/usr/bin/python
+        import sys
+        for line in sys.stdin:
+          sys.stdout.write( line )
+    echo:
+        echo "Chrom\tPos\nchrN\t1\nchrN\t1"
+    arguments:
+      - name: top
+        type: string
+        default: "10"
+      - next: some
+        type: string
+        values: ["some thing","some (thing else)"]
+        default: "some (thing else)"

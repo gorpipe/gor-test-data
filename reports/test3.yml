@@ -1,0 +1,17 @@
+TestReport:
+    query: |
+        gor ../tests/data/gor/dbsnp_test.gorz -f ${CASEs.val} -s rsIDs | top ${top.val}
+    query2: |
+        gor ../tests/data/gor/dbsnp_test.gorz
+    arguments:
+      - name: top
+        type: string
+        optional: no
+        default: "10"
+      - name: CASEs
+        optional: no
+        type: pn_lists_entries
+        values_path: dummy
+        format:
+          keywords: "%s"
+          empty: "'NONE'"

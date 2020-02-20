@@ -1,0 +1,87 @@
+Pathways to Genes:
+  Version_info: Version 1.3.4, 2018-05-28
+  Package_version: 3.7.0
+  dialog_group: Genes
+  image_color: dark_gray
+  list_description: Maps selected pathway(s) to a set of related genes in the same pathway(s)
+  description: |
+    <div style="margin:10px;"><font size = "4">
+    <font size="4.5"><p>This dialog generates a list of genes found in the selected pathway(s).&nbsp The list of genes can be represented by a single row per gene or a single row for a set of genes in a pathway related to each gene identified.</p></font>
+    </font>
+
+    <a style="color:#0b68b2;"><b><font size="4">Basic parameters</b></a><table style="border-spacing:10">
+    <tr><td><span style="color:#00aeef">pathways</span> </td><td>Select pathway(s) from the list of pathways derived from BioCyc, HGMD, KEGG, Pathway Interaction Database, Reactome, and Wiki Pathways.</td></tr>
+    <tr><td><span style="color:#00aeef">format</span> </td><td>line_per_gene_pathway/line_per_gene/line_per_gene_pathway_relatedgene; Select whether to list the output as a single row for each gene and/or pathway.</td></tr>
+    </table></font>
+
+    <a style="color:#0b68b2;"><b><font size="4">Advanced parameters</b></a><table style="border-spacing:10">
+    <tr><td><span style="color:#00aeef">long_running_query</span></td><td>This query will run as a long running job if set to yes.</td></tr>
+    <tr><td><span style="color:#00aeef">running_time</span></td><td>Time in hours until long running job will be cancelled.</td></tr>
+    <tr><td><span style="color:#00aeef">ref_path</span></td><td>Path to the reference data directory.</td></tr>
+    </table></font>
+
+    <a style="color:#0b68b2;"><b>
+    <font size="4">Version Information</b></a><table style="border-spacing:10">
+    <font size="3.5">Version 1.3.4, 2018-05-28</font><br>
+    <font size="3.5">Package version 3.7.0</font></br><br><font size="3.5">Git SHA ff17272fb3ba659a66d82a66314a79fbcd74e73f</font></br>
+    </table></font>
+
+    </table></font></div>
+
+  query_type: |
+    <#if long_running_query.val == "Yes">
+      jobtype:GORQUERY|timeout:${running_time.val}
+    </#if>
+
+  query: |
+    <#setting locale="en_US">
+    <#setting number_format="computer">
+
+    create ##dummy## = gor ##genes## | top 1; ${br} ${br}
+    def ##ref## = ${ref_path.val}; ${br}
+    <#assign ref = "##ref##" >
+
+    def ##genes## = ${ref}/genes.gorz; ${br}
+    def ##gene2pathway## = ${ref}/ensgenes/ensgenes_gene2pathway.mmap; ${br} ${br}
+
+    create ##genePathway## = nor -h ##gene2pathway##;
+    create ##pathwayGene## = nor -h ##gene2pathway## | rename Gene_symbol Gene_in_pathway | columnsort pathway,Gene_in_pathway;
+
+    gor ##genes## | select 1-3,gene_symbol | multimap [##genePathway##] -c gene_symbol -n Pathway
+    | where ${pathways.val} | multimap [##pathwayGene##] -c pathway -n Gene_in_pathway
+    <#if format.val == "line_per_gene_pathway"> | group 1 -gc 3,gene_symbol,pathway -sc Gene_in_pathway -set -len 1000 | rename set_Gene_in_pathway Genes_in_pathway </#if>
+    <#if format.val == "line_per_gene"> | group 1 -gc 3,gene_symbol -sc pathway,Gene_in_pathway -set -len 1000 | rename set_pathway pathways | rename set_Gene_in_pathway Genes_in_pathway </#if>
+
+  arguments:
+  - name: pathways
+    optional: yes
+    type: string
+    values_path: PathwaysAndGenes
+    format:
+      keywords: contains(Pathway,%s)
+      values: Pathway in (%s)
+      empty: 2=2
+  - name: format
+    optional: no
+    type: string
+    values: ["line_per_gene_pathway","line_per_gene","line_per_gene_pathway_relatedgene"]
+    default: "line_per_gene"
+  - name: long_running_query
+    advanced: yes
+    optional: no
+    type: string
+    values: ["Yes","No"]
+    default: "No"
+    display_width: 300
+  - name: running_time
+    advanced: yes
+    optional: no
+    type: string
+    values: ["1","2","3","4"]
+    default: "4"
+    display_width: 300
+  - name: ref_path
+    advanced: yes
+    optional: yes
+    type: string
+    default: "ref"

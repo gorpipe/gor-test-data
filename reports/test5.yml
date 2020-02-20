@@ -1,0 +1,3 @@
+TestReport:
+    query:
+        echo "Chrom\tPos\nchrN\t1\nchrN\t1"

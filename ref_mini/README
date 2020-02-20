@@ -1,0 +1,33 @@
+#
+# Mini reference data for testing (unit and integration).
+#
+
+# As most tests are run from the module dir os we use paths relative that.
+
+# Base this on the clinical_examples ref data.
+
+BASE_PROJECT="/mnt/csa/env/dev/projects/clinical_examples"
+BASE_CONFIG="config/hg19_gor_config.txt"
+
+# Creation (run in the ref_mini folder):
+
+echo -e "buildPath\t../tests/data/ref_mini/chromSeq" > gor_config.txt
+echo -e "buildSizeFile\t../tests/data/ref_mini/buildsize.gor" >> gor_config.txt
+echo -e "buildSplitFile\t../tests/data/ref_mini/buildsplit.txt" >> gor_config.txt
+
+# Lets use 1/1000 of the original size.
+CUT_CHAR=4 # Removes last 3.
+
+BASE_BUILD_SIZE_FILE="${BASE_PROJECT}/$(cat ${BASE_PROJECT}/${BASE_CONFIG} | grep buildSizeFile | cut -f2)"
+cat ${BASE_BUILD_SIZE_FILE} | tr -d '\r' | rev | cut -c${CUT_CHAR}- | rev > buildsize.gor
+
+BASE_BUILD_SPLIT_FILE="${BASE_PROJECT}/$(cat ${BASE_PROJECT}/${BASE_CONFIG} | grep buildSplitFile | cut -f2)"
+cat ${BASE_BUILD_SPLIT_FILE} | tr -d '\r' | rev | cut -c${CUT_CHAR}- | rev > buildsplit.txt
+
+mkdir -p chromSeq
+BASE_BUILD_DIR="${BASE_PROJECT}/$(cat ${BASE_PROJECT}/${BASE_CONFIG} | grep buildPath | cut -f2)"
+while read chr size; do
+  echo "Creating ${chr}"
+  #echo "head -n ${size} ${BASE_BUILD_DIR}/${chr}.txt > chromSeq/${chr}.txt"
+  cut -c1-${size} ${BASE_BUILD_DIR}/${chr}.txt > chromSeq/${chr}.txt
+done < buildsize.gor

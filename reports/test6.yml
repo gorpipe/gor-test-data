@@ -1,0 +1,14 @@
+Pathways to Genes:
+  query: |
+    def ##genes## = genes.gorz; ${br}
+    gor ##genes## | select 1-3,gene_symbol | where ${pathways.val}
+
+  arguments:
+   - name: pathways
+     optional: yes
+     type: string
+     values_path: PathwaysAndGenes
+     format:
+       keywords: contains(Pathway,%s)
+       values: Pathway in (%s)
+       empty: 2=2

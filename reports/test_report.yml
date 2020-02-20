@@ -1,0 +1,9 @@
+TestReport:
+    query: |
+        gor [gorgrid: ${GOR_report.val}] | top 2
+    query2: |
+        gor [grid: ${GOR_report.val}] | top 5
+    arguments:
+      - name: GOR_report
+        type: grid
+        optional: no

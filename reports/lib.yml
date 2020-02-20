@@ -1,0 +1,14 @@
+MyReport:
+    query: |
+      gor ${infile.val}
+    default_query: |
+      gor ${infile.val}
+    mystep: |
+      top ${top.val}
+    arguments:
+      - name: top
+        type: string
+        default: "10"
+      - name: infile
+        type: string
+        default: "../tests/data/gor/genes.gor"

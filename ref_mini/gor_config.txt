@@ -1,0 +1,3 @@
+buildPath	../tests/data/ref_mini/chromSeq
+buildSizeFile	../tests/data/ref_mini/buildsize.gor
+buildSplitFile	../tests/data/ref_mini/buildsplit.txt

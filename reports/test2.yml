@@ -1,0 +1,9 @@
+Test Report:
+    query: |
+        create xxx = gor ../tests/data/gor/dbsnp_test.gorz | calc semic ';' | top 100; gor [xxx] | top ${top.val}
+    query2: |
+        create xxx = gor ../tests/data/gor/dbsnp_test.gorz | top 100; gor [xxx]
+    arguments:
+      - name: top
+        type: string
+        default: "10"

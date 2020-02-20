@@ -1,0 +1,25 @@
+Test:
+  Version_info: Version
+  Package_version: 1
+  dialog_group: CaseControl
+  image_color: orange
+  list_description: Count variants
+  description: |
+    nodesc
+  query: |
+    gor ../tests/data/gor/genes.gor | where posof(Gene_Symbol,'${stuff.val}') = 0
+  arguments:
+    - name: stuff
+      default: "P"
+      type: string
+    - name: sel
+      default: "chr14"
+      type: string
+  perspectives:
+    - name: "filter"
+      group: "ALL"
+      default: no
+      filter: |
+        Chrom = '${sel.val}'
+      initial_columns: ["Chrom", "gene_start", "gene_end", "Gene_Symbol"]
+

@@ -1,0 +1,10 @@
+Test Report:
+    query: |
+        <#import "macros.ftl" as m>
+        <@m.macroquery />
+    query2: |
+        gor ../tests/data/gor/genes.gor
+    arguments:
+      - name: top
+        type: string
+        default: "5"
