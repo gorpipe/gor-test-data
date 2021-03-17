@@ -14,7 +14,7 @@ TestReport:
       - name: top
         type: string
         default: "10"
-      - next: some
+      - name: some
         type: string
         values: ["some thing","some (thing else)"]
         default: "some (thing else)"
