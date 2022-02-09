@@ -2,6 +2,9 @@
 
 This repository contains test data needed for running tests within the GOR repository. The following sections contain details on this data.
 
+**bvl_min**
+
+Brown Violetta Demo case - reduced to a single gene (SLC25A2) with the causative variant.  
 
 **External**
 

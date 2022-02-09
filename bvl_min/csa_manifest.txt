@@ -1,0 +1,9 @@
+#SampleId	SubjectId	Gender	Product	ProductVersion	StudyId	StudyRole	Affected	SampleTags	Platform	FileType	Compression	DataType	ReadNo	 PartNo	FileName	Path	Md5	FileTags
+BVL_INDEX	BVL_INDEX	female	SEQUENCING	V1	Brown-Violetta-Minimum	index	Y			bam					BVL_INDEX_SLC52A2.bam	bam/BVL_INDEX_SLC52A2.bam	4ce39ddf981f3a85c9214cddb435c64c
+BVL_INDEX	BVL_INDEX	female	SEQUENCING	V1	Brown-Violetta-Minimum	index	Y			vcf	gz				BVL_INDEX_SLC52A2.vcf.gz	vcf/BVL_INDEX_SLC52A2.vcf.gz	82c845c275dd187113fbad0705508c69
+BVL_FATHER	BVL_FATHER	male	SEQUENCING	V1	Brown-Violetta-Minimum	father	N			bam					BVL_FATHER_SLC52A2.bam	bam/BVL_FATHER_SLC52A2.bam	910b0a28a6385d47917fac2bcdd98274
+BVL_FATHER	BVL_FATHER	male	SEQUENCING	V1	Brown-Violetta-Minimum	father	N			vcf	gz				BVL_FATHER_SLC52A2.vcf.gz	vcf/BVL_FATHER_SLC52A2.vcf.gz	7b4df0501432835d73f246e759533851
+BVL_MOTHER	BVL_MOTHER	male	SEQUENCING	V1	Brown-Violetta-Minimum	mother	N			bam					BVL_MOTHER_SLC52A2.bam	bam/BVL_MOTHER_SLC52A2.bam	715cd54224857915b27c398a4d3c1632
+BVL_MOTHER	BVL_MOTHER	male	SEQUENCING	V1	Brown-Violetta-Minimum	mother	N			vcf	gz				BVL_MOTHER_SLC52A2.vcf.gz	vcf/BVL_MOTHER_SLC52A2.vcf.gz	9a5d4fd150f0082cf7f4e667fe2648e5
+BVL_SISTER	BVL_SISTER	female	SEQUENCING	V1	Brown-Violetta-Minimum	sibling	Y			bam					BVL_SISTER_SLC52A2.bam	bam/BVL_SISTER_SLC52A2.bam	49bd565cb6e272eaedbd8630018191c7
+BVL_SISTER	BVL_SISTER	female	SEQUENCING	V1	Brown-Violetta-Minimum	sibling	Y			vcf	gz				BVL_SISTER_SLC52A2.vcf.gz	vcf/BVL_SISTER_SLC52A2.vcf.gz	4787aaa9a328b827c3f1a0cdb2446b74
