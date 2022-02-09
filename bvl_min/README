@@ -1,0 +1,35 @@
+VP - 2015-06-05
+Brown Violetta Demo case - reduced to a single gene (SLC25A2) with the causative variant.
+
+Generated as rda@nc-dev-gor001
+
+$ use_dev
+$ cd work/test
+$ gene_range SLC52A2
+# Output: chr8:145577794-145584932
+
+chrom=8
+start=145577794
+stop=145584932
+postfix=SLC52A2
+for pn in BVL_INDEX BVL_FATHER BVL_MOTHER BVL_SISTER; do
+    echo $pn
+    pn_post="${pn}_${postfix}"
+    samtools view -b /mnt/csa/env/dev/projects/clinical_examples/source/bam/${pn}.bam ${chrom}:${start}-${stop} >${pn_post}.bam
+    samtools index ${pn_post}.bam
+
+    gunzip -c /mnt/csa/env/dev/projects/clinical_examples/source/var/vcf/${pn}.vcf.gz | head -10000 | grep '^#' >${pn_post}.vcf
+    gunzip -c /mnt/csa/env/dev/projects/clinical_examples/source/var/vcf/${pn}.vcf.gz | awk -v chrom=$chrom -v start=$start -v stop=$stop '{if ($1 == chrom && $2 >= start && $2 <= stop) print $0}' >>${pn_post}.vcf
+
+    bgzip ${pn_post}.vcf
+    tabix ${pn_post}.vcf.gz
+done
+
+
+Example to register from command line as rda@nc-dev-gor001:
+
+$ use_dev
+$ cd work/csa-test-data/data_sets/bvl_min
+$ create_org bvl_test "BVL test"
+$ create_project bvl_test bvl_test "BVL Test" hg19
+$ import_manifest csa_manifest.txt bvl_test
