@@ -1,4 +1,4 @@
-Chrom	gene_start	gene_end	Gene_Symbol
+#Chrom	gene_start	gene_end	Gene_Symbol
 chr1	11868	14412	DDX11L1
 chr1	14362	29806	WASH7P
 chr1	34553	36081	FAM138A
