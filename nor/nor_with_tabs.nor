@@ -1,0 +1,12 @@
+#Line	Value
+Line1	"a	b" 
+Line2	'a	b'
+Line3	a"	"b
+Line4	"a\tb"
+Line5	'a\tb'
+Line6	a"\t"b
+Line7	"a\\tb"
+Line8	'a\\tb'
+Line9	a"\\t"b
+Line10	a\tb
+Line11	a\\tb
